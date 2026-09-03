@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Pratibha — Lessons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#1A4FA0" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <div class="topbar">
+    <button class="back-btn" onclick="window.location.href='home.html'">‹</button>
+    <div style="text-align:center; flex:1;">
+      <div class="topbar-title" id="subjectTitle">Subject</div>
+      <div class="topbar-sub" id="subjectSub"></div>
+    </div>
+    <div style="width:34px;"></div>
+  </div>
+
+  <div class="content">
+    <div class="card-list" id="lessonList">
+      <div class="loading-row">Loading lessons…</div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="js/subject.js"></script>
+   <script>
+     if ('serviceWorker' in navigator) {
+       navigator.serviceWorker.register('/sw.js');
+     }
+   </script>
+</body>
+</html>

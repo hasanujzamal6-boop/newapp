@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Pratibha — Sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#1A4FA0" />
+<link rel="stylesheet" href="css/style.css" />
+</head> 
+<body>
+
+<div class="auth-wrap">
+  <div class="auth-logo">
+    <div class="spark-mark">P</div>
+    <h1>Pratibha</h1>
+    <p>Your classes, updates and lessons — all in one place</p>
+  </div>
+
+  <div class="tabs" style="margin:0 0 18px;">
+    <button type="button" class="tab active" id="roleStudent">Student</button>
+    <button type="button" class="tab" id="roleTeacher">Teacher</button>
+  </div>
+
+  <div class="form-error" id="formError"></div>
+
+  <form id="authForm">
+    <div class="field" id="nameField" style="display:none;">
+      <label for="name">Full name</label>
+      <input type="text" id="name" placeholder="e.g. Ananya Roy" autocomplete="name" />
+    </div>
+    <div class="field" id="codeField" style="display:none;">
+      <label for="teacherCode">Teacher Access Code</label>
+      <input type="text" id="teacherCode" placeholder="Enter the code given to you" autocomplete="off" />
+    </div>
+    <div class="field">
+      <label for="identifier" id="identifierLabel">Username</label>
+      <input type="text" id="identifier" placeholder="e.g. ananya123" autocomplete="username" required />
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="At least 6 characters" autocomplete="current-password" required />
+      <div style="text-align:right; margin-top:6px;" id="forgotPasswordWrap">
+        <button type="button" id="forgotPasswordBtn" style="background:none; border:none; color:var(--primary); font-size:12.5px; font-weight:600; cursor:pointer; padding:0;">Forgot password?</button>
+      </div>
+    </div>
+    <button type="submit" class="btn-primary" id="submitBtn">Sign in</button>
+  </form>
+
+  <div class="auth-switch">
+    <span id="switchLabel">New to Pratibha?</span>
+    <button type="button" id="switchBtn">Create an account</button>
+  </div>
+</div>
+
+<script type="module" src="js/auth.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
+</body>
+</html>

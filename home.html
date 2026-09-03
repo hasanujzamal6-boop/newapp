@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Pratibha — Classes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#1A4FA0" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand"><span class="spark">✦</span> PRATIBHA</div>
+    <div class="topbar-actions">
+      <button class="avatar-btn" id="avatarBtn">S</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tabClasses">Classes</button>
+    <button class="tab" id="tabUpdates">Updates</button>
+  </div>
+
+  <div class="content">
+    <div id="classesPanel">
+      <div class="card-list" id="subjectList">
+        <div class="loading-row">Loading your subjects…</div>
+      </div>
+    </div>
+
+    <div id="updatesPanel" style="display:none;">
+      <div id="updatesList">
+        <div class="loading-row">Loading updates…</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="nav-item active">
+      <span class="icon">🏠</span> Home
+    </button>
+    <button class="nav-item" id="logoutBtn">
+      <span class="icon">↪</span> Logout
+    </button>
+  </div>
+
+</div>
+
+<script type="module" src="js/home.js"></script>
+   <script>
+     if ('serviceWorker' in navigator) {
+       navigator.serviceWorker.register('/sw.js');
+     }
+   </script>
+
+</body>
+</html>

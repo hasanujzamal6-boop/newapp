@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Pratibha — Lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="manifest" href="manifest.json" />
+   <meta name="theme-color" content="#1A4FA0" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app" style="padding-bottom:20px;">
+
+  <div class="topbar">
+    <button class="back-btn" id="backBtn">‹</button>
+    <div class="topbar-title">Lesson</div>
+    <div style="width:34px;"></div>
+</div>
+
+  <div class="video-frame-wrap" id="videoFrameWrap">
+    <div class="loading-row" style="color:#fff;">Loading video…</div>
+  </div>
+
+  <div class="video-meta">
+    <h2 id="lessonTitle">Loading…</h2>
+    <div class="video-desc" id="lessonDesc"></div>
+  </div>
+
+</div>
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script type="module" src="js/video.js"></script>
+   <script>
+     if ('serviceWorker' in navigator) {
+       navigator.serviceWorker.register('/sw.js');
+     }
+   </script>
+</body>
+</html>

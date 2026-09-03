@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Pratibha — Manage Lessons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="manifest" href="manifest.json" />
+   <meta name="theme-color" content="#1A4FA0" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <div class="topbar">
+    <button class="back-btn" onclick="window.location.href='teacher-home.html'">‹</button>
+    <div style="text-align:center; flex:1;">
+      <div class="topbar-title" id="subjectTitle">Subject</div>
+      <div class="topbar-sub">Manage lessons</div>
+    </div>
+    <div style="width:34px;"></div>
+  </div>
+
+  <div class="content">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin:6px 4px 12px;">
+      <div class="section-label" style="margin:0;">Lessons</div>
+      <button class="btn-primary" id="toggleAddLessonBtn" style="width:auto; padding:8px 14px; font-size:13px; margin:0;">+ Add Lesson</button>
+    </div>
+
+    <div id="addLessonPanel" style="display:none; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px; margin-bottom:16px; box-shadow:var(--shadow-card);">
+      <div class="form-error" id="lessonFormError"></div>
+      <form id="addLessonForm">
+        <input type="hidden" id="editingLessonId" value="" />
+        <div class="field">
+          <label for="lessonTitle">Lesson title</label>
+          <input type="text" id="lessonTitle" placeholder="e.g. Chapter 1 — Introduction" required />
+        </div>
+        <div class="field">
+          <label for="lessonDesc">Description</label>
+          <input type="text" id="lessonDesc" placeholder="What this lesson covers" />
+        </div>
+        <div class="field">
+          <label for="lessonDuration">Duration</label>
+          <input type="text" id="lessonDuration" placeholder="e.g. 12 min" />
+        </div>
+        <div class="field">
+          <label for="lessonVideoUrl">Video embed link (Vimeo / Bunny.net)</label>
+          <input type="url" id="lessonVideoUrl" placeholder="https://player.vimeo.com/video/XXXXXXXXX" />
+        </div>
+        <button type="submit" class="btn-primary" id="addLessonSubmit">Add Lesson</button>
+      </form>
+    </div>
+
+    <div class="card-list" id="lessonList">
+      <div class="loading-row">Loading lessons…</div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="js/teacher-subject.js"></script>
+
+   <script>
+     if ('serviceWorker' in navigator) {
+       navigator.serviceWorker.register('/sw.js');
+     }
+   </script>
+</body>
+</html>
