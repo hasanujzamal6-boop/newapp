@@ -6,17 +6,17 @@
 // ============================================================
 
 const CACHE_NAME = "pratibha-cache-v1";
-
 const CORE_FILES = [
-  "/index.html",
-  "/home.html",
-  "/subject.html",
-  "/video.html",
-  "/teacher-home.html",
-  "/teacher-subject.html",
-  "/css/style.css",
-  "/manifest.json",
-  "/icons/icon-512.png"
+  "./index.html",
+  "./home.html",
+  "./subject.html",
+  "./video.html",
+  "./teacher-home.html",
+  "./teacher-subject.html",
+  "./css/style.css",
+  "./manifest.json",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
 // On install: pre-cache the core app shell files
