@@ -40,6 +40,11 @@
     </div>
   </div>
 
+    <div id="notifyBanner" style="display:none; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:12px 14px; margin:0 16px 14px; display:flex; align-items:center; justify-content:space-between; gap:10px; box-shadow:var(--shadow-card);">
+    <div style="font-size:13px; color:var(--ink);">🔔 Get notified about new lessons &amp; updates</div>
+    <button class="btn-primary" id="enableNotifyBtn" style="width:auto; padding:8px 12px; font-size:12.5px; margin:0; white-space:nowrap;">Enable</button>
+  </div>
+
   <div class="bottom-nav">
     <button class="nav-item active">
       <span class="icon">🏠</span> Home
@@ -54,7 +59,7 @@
 <script type="module" src="js/home.js"></script>
    <script>
      if ('serviceWorker' in navigator) {
-       navigator.serviceWorker.register('/sw.js');
+      navigator.serviceWorker.register('./sw.js');
      }
    </script>
 
