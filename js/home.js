@@ -1,7 +1,9 @@
-import { db, collection, getDocs, query, where, orderBy } from "./firebase-config.js";
+import { db, collection, getDocs, query, orderBy } from "./firebase-config.js";
 import { requireAuth, wireLogout, initials } from "./nav-guard.js";
+import { initNotificationBanner } from "./notifications.js";
 
 const user = await requireAuth();
+initNotificationBanner(user);
 
 document.getElementById("avatarBtn").textContent = initials(user.displayName);
 wireLogout(document.getElementById("logoutBtn"));
@@ -29,20 +31,21 @@ function escapeHTML(str) {
   return div.innerHTML;
 }
 
-// Fetch the set of "subjectId_lessonId" keys this student has already watched
-async function getWatchedSet() {
-  try {
-    const snap = await getDocs(collection(db, "users", user.uid, "watched"));
-    const set = new Set();
-    snap.forEach((docSnap) => set.add(docSnap.id));
-    return set;
-  } catch (err) {
-    console.error("Couldn't load watched lessons:", err);
-    return new Set();
-  }
+function ringAvatarHTML(label, progressPct = 0) {
+  const r = 23, c = 2 * Math.PI * r;
+  const offset = c - (Math.min(100, Math.max(0, progressPct)) / 100) * c;
+  return `
+    <div class="ring-avatar">
+      <svg width="52" height="52" viewBox="0 0 52 52">
+        <circle class="ring-bg" cx="26" cy="26" r="${r}" />
+        <circle class="ring-fg" cx="26" cy="26" r="${r}"
+          stroke-dasharray="${c}" stroke-dashoffset="${offset}" />
+      </svg>
+      <div class="avatar-core">${label}</div>
+    </div>`;
 }
 
-// ---------- Load subjects (with progress bar per subject) ----------
+// ---------- Load subjects ----------
 async function loadSubjects() {
   const listEl = document.getElementById("subjectList");
   try {
@@ -58,49 +61,24 @@ async function loadSubjects() {
       return;
     }
 
-    const watchedSet = await getWatchedSet();
-
     listEl.innerHTML = "";
-
-    for (const docSnap of snap.docs) {
+    snap.forEach((docSnap) => {
       const s = docSnap.data();
-      const subjectId = docSnap.id;
       const letter = (s.icon || s.name || "?").trim()[0].toUpperCase();
-
-      // Count how many of this subject's lessons have a video AND have been watched
-      let percent = 0;
-      try {
-        const lessonsSnap = await getDocs(collection(db, "subjects", subjectId, "lessons"));
-        const lessonsWithVideo = lessonsSnap.docs.filter((l) => l.data().videoEmbedUrl);
-        if (lessonsWithVideo.length > 0) {
-          const watchedCount = lessonsWithVideo.filter((l) =>
-            watchedSet.has(`${subjectId}_${l.id}`)
-          ).length;
-          percent = Math.round((watchedCount / lessonsWithVideo.length) * 100);
-        }
-      } catch (err) {
-        console.error(`Couldn't compute progress for ${subjectId}:`, err);
-      }
-
       const card = document.createElement("div");
       card.className = "subject-card";
       card.innerHTML = `
-        <div class="ring-avatar">
-          <div class="avatar-core" style="position:static; width:52px; height:52px;">${escapeHTML(letter)}</div>
-        </div>
+        ${ringAvatarHTML(letter, s.progress || 0)}
         <div class="card-body">
           <div class="card-title">${escapeHTML(s.name || "Untitled")}</div>
           <div class="card-sub">${escapeHTML(s.description || "")}</div>
         </div>
-        <div class="card-chevron">›</div>
-        <div class="subject-progress-track">
-          <div class="subject-progress-fill" style="width:${percent}%;"></div>
-        </div>`;
+        <div class="card-chevron">›</div>`;
       card.addEventListener("click", () => {
-        window.location.href = `subject.html?id=${encodeURIComponent(subjectId)}`;
+        window.location.href = `subject.html?id=${encodeURIComponent(docSnap.id)}`;
       });
       listEl.appendChild(card);
-    }
+    });
   } catch (err) {
     console.error(err);
     listEl.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div>Couldn't load subjects. Check your Firebase setup / Firestore rules.</div>`;
